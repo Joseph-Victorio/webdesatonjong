@@ -26,10 +26,10 @@
     --color-popover: var(--popover);
     --color-popover-foreground: var(--popover-foreground);
 
-    --color-primary: var(--primary);
+    --color-primary: #3D7D4B;
     --color-primary-foreground: var(--primary-foreground);
 
-    --color-secondary: var(--secondary);
+    --color-secondary: #fff500;
     --color-secondary-foreground: var(--secondary-foreground);
 
     --color-muted: var(--muted);

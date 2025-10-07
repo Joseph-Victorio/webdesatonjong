@@ -59,12 +59,12 @@ const mainNavItems: NavItem[] = [
     },
     {
         title: 'Kelola Berita',
-        href: dashboard(),
+        href: '/admin/kelola-berita',
         icon: Newspaper,
     },
     {
         title: 'Kelola Galeri',
-        href: dashboard(),
+        href: '/admin/kelola-galeri',
         icon: Images,
     },
 ];
