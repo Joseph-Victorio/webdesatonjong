@@ -28,7 +28,7 @@ const index = () => {
     const { delete: destroy } = useForm();
     const handleDelete = (id: number) => {
         if (confirm('Apakah anda yakin mau menghapus foto ini?')) {
-            destroy(`/admin/galeri/${id}`);
+            destroy(`/galeri/${id}`);
         }
     };
 

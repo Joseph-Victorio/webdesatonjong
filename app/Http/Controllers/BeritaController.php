@@ -16,18 +16,18 @@ class BeritaController extends Controller
     {
         $search = $request->input('search');
         $berita = Berita::query()
-                ->when($search, function($query,$search){
-                    $query->where('judul_berita', 'like', "%{$search}%")
+            ->when($search, function ($query, $search) {
+                $query->where('judul_berita', 'like', "%{$search}%")
                     ->orWhere('penulis', 'like', "%{$search}%");
-                })
-                ->orderBy('created_at', 'desc')
-                ->paginate(5)
-                ->withQueryString();
+            })
+            ->orderBy('created_at', 'desc')
+            ->paginate(5)
+            ->withQueryString();
 
         return Inertia::render('berita/BeritaIndex', [
             'beritas' => $berita,
-            'filters'=>[
-                'filter'=>$search,
+            'filters' => [
+                'filter' => $search,
             ],
         ]);
     }
@@ -91,17 +91,13 @@ class BeritaController extends Controller
             'foto' => 'nullable|image|max:2048',
         ]);
 
-        // Jika upload foto baru
         if ($request->hasFile('foto')) {
-            // Hapus foto lama (optional, jika ingin bersih)
             if ($berita->foto && Storage::disk('public')->exists($berita->foto)) {
                 Storage::disk('public')->delete($berita->foto);
             }
 
-            // Simpan foto baru
             $validated['foto'] = $request->file('foto')->store('berita', 'public');
         } else {
-            // Tidak upload foto → tetap pakai foto lama
             $validated['foto'] = $berita->foto;
         }
 
@@ -126,4 +122,19 @@ class BeritaController extends Controller
 
         return redirect()->route('berita.index')->with('success', 'Berita berhasil dihapus!');
     }
+
+    public function news(Request $request)
+{
+    $beritas = Berita::orderBy('created_at', 'desc')
+        ->paginate(9) 
+        ->through(function ($item) {
+            $item->foto = $item->foto ? asset('storage/' . $item->foto) : null;
+            return $item;
+        });
+
+    return Inertia::render('client/berita', [
+        'beritas' => $beritas
+    ]);
+}
+
 }

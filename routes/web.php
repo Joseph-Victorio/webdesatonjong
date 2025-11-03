@@ -6,8 +6,10 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', function () {
-    return Inertia::render('welcome');
+    return Inertia::render('client/beranda');
 })->name('home');
+
+Route::get('/berita', [BeritaController::class, 'news'])->name('berita');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', function () {
@@ -20,6 +22,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::put('/berita/{berita}', [BeritaController::class, 'update'])->name('berita.update');
     Route::delete('/berita/{berita}', [BeritaController::class, 'destroy'])->name('berita.destroy');
     Route::post('/admin/tambah-berita', [BeritaController::class, 'store'])->name('berita.store');
+    
 
     Route::get('/admin/kelola-galeri', [GaleriController::class, 'index'])->name('galeri.index');
     Route::get('/admin/tambah-galeri', [GaleriController::class, 'create'])->name('galeri.create');

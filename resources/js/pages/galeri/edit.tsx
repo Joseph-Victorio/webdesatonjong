@@ -23,7 +23,7 @@ const edit = ({ galeri }: Props) => {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        post(`/admin/galeri/${galeri.id}?_method=PUT`, { forceFormData: true });
+        post(`/galeri/${galeri.id}?_method=PUT`, { forceFormData: true });
     };
     const breadcrumbs = [
         { title: 'Galeri', href: '/admin/kelola-galeri' },
