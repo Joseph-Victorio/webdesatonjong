@@ -6,12 +6,10 @@ use App\Models\Berita;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class BeritaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index(Request $request)
     {
         $search = $request->input('search');
@@ -32,17 +30,11 @@ class BeritaController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         return Inertia::render('berita/BeritaTambah');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -51,6 +43,7 @@ class BeritaController extends Controller
             'isi_berita' => 'required|string',
             'foto' => 'required|image|max:2048',
         ]);
+          $validated['slug'] = Str::slug($validated['judul_berita']);
 
         if ($request->hasFile('foto')) {
             $validated['foto'] = $request->file('foto')->store('berita', 'public');
@@ -61,17 +54,6 @@ class BeritaController extends Controller
         return redirect()->route('berita.index')->with('success', 'Berita berhasil disimpan!');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Berita $berita)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Berita $berita)
     {
         return Inertia::render('berita/BeritaEdit', [
@@ -79,9 +61,6 @@ class BeritaController extends Controller
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Berita $berita)
     {
         $validated = $request->validate([
@@ -90,6 +69,7 @@ class BeritaController extends Controller
             'isi_berita' => 'required|string',
             'foto' => 'nullable|image|max:2048',
         ]);
+        $validated['slug'] = Str::slug($validated['judul_berita']);
 
         if ($request->hasFile('foto')) {
             if ($berita->foto && Storage::disk('public')->exists($berita->foto)) {
@@ -108,10 +88,6 @@ class BeritaController extends Controller
             ->with('success', 'Berita berhasil diperbarui!');
     }
 
-
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Berita $berita)
     {
         if ($berita->foto && file_exists(storage_path('app/public/' . $berita->foto))) {
@@ -136,5 +112,19 @@ class BeritaController extends Controller
         'beritas' => $beritas
     ]);
 }
+public function detail(Berita $berita){
+    $berita->increment('viewer') ;
+    $terkini = Berita::where('id', '!=', $berita->id)
+                ->orderBy('created_at', 'desc')
+                ->take(5)
+                ->get();
 
+    $berita->foto = $berita->foto ? asset('storage/'. $berita->foto): null;
+   
+
+    return Inertia::render('client/detail-berita',[
+        'berita'=>$berita,
+        'terkini'=>$terkini,
+    ]);
+}
 }

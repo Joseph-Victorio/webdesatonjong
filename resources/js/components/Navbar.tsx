@@ -20,7 +20,6 @@ const Navbar = () => {
     { label: 'Infografis', href: '/infografis' },
     { label: 'Galeri', href: '/galeri' },
     { label: 'Berita', href: '/berita' },
-    { label: 'PPID', href: '/ppid' },
   ];
 
   const isHome = url === '/';

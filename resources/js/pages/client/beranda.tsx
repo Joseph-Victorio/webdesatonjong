@@ -37,7 +37,7 @@ const beranda = () => {
             <Head title="Beranda" />
            <Hero/>
             {/* jelajah desa */}
-            <section className="mt-5 md:px-10 md:py-10">
+            <section className="mt-5 md:px-10 md:py-20">
                 {/* mobile */}
                 <div className="flex flex-wrap items-center gap-5 p-5 md:hidden">
                     <a href="/profil-desa">

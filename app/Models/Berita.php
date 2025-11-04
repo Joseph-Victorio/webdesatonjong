@@ -8,10 +8,16 @@ class Berita extends Model
 {
     protected $fillable = [
         'judul_berita',
+         'slug',
         'penulis',
         'viewer',
         'isi_berita',
         'foto',
-
+       
     ];
+
+      public function getRouteKeyName()
+    {
+        return 'slug';
+    }
 }

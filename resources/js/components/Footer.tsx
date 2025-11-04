@@ -50,8 +50,8 @@ const Footer = () => {
                         <li className="flex items-center gap-2">
                             <FaPhoneAlt /> 08123456789
                         </li>
-                        <li>
-                            <FaEnvelope /> desatonjong@gmail.com
+                        <li className='flex items-center gap-2'>
+                            <FaEnvelope /> desatonjong372006@gmail.com
                         </li>
                     </ul>
                     <div className="mt-4 flex gap-3 text-xl">

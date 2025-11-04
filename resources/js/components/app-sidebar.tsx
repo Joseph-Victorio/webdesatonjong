@@ -28,34 +28,14 @@ const mainNavItems: NavItem[] = [
         icon: Users,
     },
     {
-        title: 'Kelola Informasi PPID',
-        href: dashboard(),
-        icon: BookOpen,
-    },
-    {
-        title: 'List Permohonan Informasi',
-        href: dashboard(),
-        icon: FileText,
-    },
-    {
         title: 'List Pengaduan',
         href: dashboard(),
         icon: FileWarning,
     },
     {
         title: 'Kelola Data Penduduk',
-        href: dashboard(),
+        href: '/admin/kelola-penduduk',
         icon: UserCheck2,
-    },
-    {
-        title: 'Kelola Data Bansos',
-        href: dashboard(),
-        icon: PackageCheck,
-    },
-    {
-        title: 'Kelola Data Stunting',
-        href: dashboard(),
-        icon: PackageCheck,
     },
     {
         title: 'Kelola Berita',

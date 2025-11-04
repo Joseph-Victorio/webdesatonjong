@@ -10,6 +10,7 @@ Route::get('/', function () {
 })->name('home');
 
 Route::get('/berita', [BeritaController::class, 'news'])->name('berita');
+Route::get('/berita/{berita:slug}', [BeritaController::class, 'detail'])->name('berita.detail');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', function () {

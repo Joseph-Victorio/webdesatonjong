@@ -12,8 +12,7 @@ const data = [
   { label: "Laki-Laki", value: "607", icon: <FaMale /> },
   { label: "Kepala Keluarga", value: "307", icon: <FaUserFriends /> },
   { label: "Perempuan", value: "546", icon: <FaFemale /> },
-  { label: "Penduduk Sementara", value: "88", icon: <FaUserClock /> },
-  { label: "Mutasi Penduduk", value: "41", icon: <FaExchangeAlt /> },
+  
 ];
 
 const AdministrasiPendudukan = () => {
