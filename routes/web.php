@@ -1,16 +1,23 @@
 <?php
 
+use App\Http\Controllers\Beranda;
 use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\GaleriController;
+use App\Http\Controllers\InfografisController;
+use App\Http\Controllers\PendudukSingkat;
+use App\Http\Controllers\ProfilDesaController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::get('/', function () {
-    return Inertia::render('client/beranda');
-})->name('home');
+Route::get('/',[Beranda::class, 'index'])->name('home');
 
 Route::get('/berita', [BeritaController::class, 'news'])->name('berita');
 Route::get('/berita/{berita:slug}', [BeritaController::class, 'detail'])->name('berita.detail');
+Route::get('/infografis',[InfografisController::class, 'client'])->name('infografis.client');
+Route::get('/usia-penduduk', [InfografisController::class, 'usia'])->name('usia.penduduk');
+Route::get('/profil',[ProfilDesaController::class, 'index'])->name('profil');
+
+
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', function () {

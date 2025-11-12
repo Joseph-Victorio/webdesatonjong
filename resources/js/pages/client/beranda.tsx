@@ -6,7 +6,7 @@ import { Head } from '@inertiajs/react';
 import {
     ArrowRightCircle,
     ChartNoAxesCombined,
-    FileText,
+    Image,
     Landmark,
     Newspaper,
 } from 'lucide-react';
@@ -31,11 +31,25 @@ const anggota = [
     { image: '/images/bpd.jpg', nama: 'Andi Wijaya', jabatan: 'Ketua BPD' },
 ];
 
-const beranda = () => {
+interface Singkat {
+    id: number;
+    nama: string;
+    jumlah: number;
+}
+interface PageProps {
+    singkat: Singkat[];
+}
+const beranda = ({ singkat }: PageProps) => {
+    const images = [
+        '/infografi/1.png',
+        '/infografi/2.png',
+        '/infografi/3.png',
+        '/infografi/4.png',
+    ];
     return (
         <GuestLayout>
             <Head title="Beranda" />
-           <Hero/>
+            <Hero />
             {/* jelajah desa */}
             <section className="mt-5 md:px-10 md:py-20">
                 {/* mobile */}
@@ -62,11 +76,13 @@ const beranda = () => {
                             Infografis
                         </p>
                     </a>
-                    <a href="/ppid">
+                    <a href="/galeri">
                         <div className="rounded-xl p-2 shadow-lg transition-all duration-300 ease-in-out hover:shadow-primary">
-                            <FileText size={50} className="text-primary" />
+                            <Image size={50} className="text-primary" />
                         </div>
-                        <p className="text-center font-bold md:text-xl">PPID</p>
+                        <p className="text-center font-bold md:text-xl">
+                            Galeri
+                        </p>
                     </a>
                     <a href="/berita">
                         <div className="rounded-xl p-2 shadow-lg transition-all duration-300 ease-in-out hover:shadow-primary">
@@ -123,12 +139,12 @@ const beranda = () => {
                         <div className="ml-20 flex flex-row gap-10">
                             <a href="/ppid">
                                 <div className="rounded-xl p-2 shadow-lg transition-all duration-300 ease-in-out hover:shadow-primary">
-                                    <FileText
+                                    <Image
                                         size={120}
                                         className="text-primary"
                                     />
                                     <p className="text-center font-bold md:text-xl">
-                                        PPID
+                                        Galeri
                                     </p>
                                 </div>
                             </a>
@@ -224,7 +240,15 @@ const beranda = () => {
                         </a>
                     </div>
                 </div>
-                <AdministrasiPendudukan />
+                <div className="grid grid-cols-2 place-content-center w-full">
+                    {singkat.map((item, index) => (
+                        <AdministrasiPendudukan
+                            nama={item.nama}
+                            jumlah={item.jumlah}
+                            images={images[index]}
+                        />
+                    ))}
+                </div>
             </section>
         </GuestLayout>
     );

@@ -116,7 +116,7 @@ export default function DetailBerita({ berita, terkini }: PageProps) {
                     <p>Bagikan ke:</p>
                     <ShareButtons title={berita.judul_berita} />
                 </div>
-                <div className="h-auto w-1/3 max-w-md rounded-xl p-5 shadow-xl">
+                <div className="h-auto md:w-1/3 md:max-w-md rounded-xl p-5 shadow-xl">
                     <h2 className="font-bold">Berita Terkini</h2>
                     {terkini && terkini.length > 0 ? (
                         terkini.map((item) => (
@@ -128,7 +128,7 @@ export default function DetailBerita({ berita, terkini }: PageProps) {
                                     <img
                                         src={'/storage/' + item.foto}
                                         alt={item.judul_berita}
-                                        className="w-30 rounded-xl"
+                                        className="w-27 md:w-30 rounded-xl"
                                     />
                                     <div>
                                         <p className="line-clamp-2 font-bold">

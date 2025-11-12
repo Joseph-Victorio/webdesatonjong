@@ -15,7 +15,7 @@ const Navbar = () => {
   }, []);
 
   const navItems = [
-    { label: 'Home', href: '/' },
+    { label: 'Beranda', href: '/' },
     { label: 'Profil Desa', href: '/profil' },
     { label: 'Infografis', href: '/infografis' },
     { label: 'Galeri', href: '/galeri' },
