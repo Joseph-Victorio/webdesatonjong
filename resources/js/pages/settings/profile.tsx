@@ -37,8 +37,8 @@ export default function Profile({
             <SettingsLayout>
                 <div className="space-y-6">
                     <HeadingSmall
-                        title="Profile information"
-                        description="Update your name and email address"
+                        title="Informasi Profil"
+                        description="Update nama dan email"
                     />
 
                     <Form
