@@ -91,7 +91,7 @@ class BeritaController extends Controller
     public function destroy(Berita $berita)
     {
         if ($berita->foto && file_exists(storage_path('app/public/' . $berita->foto))) {
-            unlink(storage_path('app/public/' . $berita->foto));
+            Storage::disk('public')->delete($berita->foto);
         }
 
         $berita->delete();

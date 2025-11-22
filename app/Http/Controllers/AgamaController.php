@@ -4,62 +4,29 @@ namespace App\Http\Controllers;
 
 use App\Models\Agama;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class AgamaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index()
     {
-        //
+        $agama = Agama::all();
+
+        return Inertia::render('penduduk/agama',[
+            'agama' => $agama,
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Agama $agama)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Agama $agama)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Agama $agama)
     {
-        //
+        $request->validate([
+            'jumlah'=> 'required'
+        ]);
+
+        $agama->update(['jumlah'=>$request->jumlah]);
+
+        return back()->with('success', 'Berhasil diperbarui.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Agama $agama)
-    {
-        //
-    }
-}
+   }

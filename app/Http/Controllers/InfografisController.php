@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Agama;
 use App\Models\Infografis;
+use App\Models\Pendidikan;
 use App\Models\Status;
 use App\Models\UsiaLaki;
 use App\Models\UsiaPerempuan;
@@ -13,7 +14,22 @@ use Inertia\Inertia;
 class InfografisController extends Controller
 {
 
-    public function index() {}
+    public function index()
+    {
+
+        $infografis = Infografis::all();
+        $laki = UsiaLaki::first();
+        $perempuan = UsiaPerempuan::first();
+        $agama = Agama::first();
+        $pendidikan = Pendidikan::first();
+        return Inertia::render('penduduk/index', [
+            'infografis' => $infografis,
+            'laki' => $laki,
+            'perempuan' => $perempuan,
+            'agama' => $agama,
+            'pendidikan' => $pendidikan
+        ]);
+    }
 
     public function create()
     {
@@ -33,6 +49,7 @@ class InfografisController extends Controller
         $agama = Agama::all();
         $laki = UsiaLaki::first();
         $perempuan = UsiaPerempuan::first();
+        $pendidikan = Pendidikan::first();
 
         $labels = [
             '0-4',
@@ -107,15 +124,16 @@ class InfografisController extends Controller
         ];
 
         $values2 = [
-            2349,
-            1224,
-            1825,
-            2040,
-            3768,
-            61,
-            213,
-            705,
-            47,
+            $pendidikan->tidak_belum_sekolah,
+            $pendidikan->tidak_tamat_sd,
+            $pendidikan->sd_sederajat,
+            $pendidikan->sltp_sederajat,
+            $pendidikan->slta_sederajat,
+            $pendidikan->diploma_i_ii,
+            $pendidikan->diploma_iii,
+            $pendidikan->strata_i,
+            $pendidikan->strata_ii,
+            $pendidikan->strata_iii,
         ];
 
         return Inertia::render('client/infografis', [
@@ -125,8 +143,8 @@ class InfografisController extends Controller
             'labels' => $labels,
             'labels2' => $labels2,
             'values2' => $values2,
-            'status_nikah'=> $status_nikah,
-            'agama'=> $agama,
+            'status_nikah' => $status_nikah,
+            'agama' => $agama,
 
 
         ]);
@@ -141,8 +159,17 @@ class InfografisController extends Controller
 
     public function update(Request $request, Infografis $infografis)
     {
-        //
+        $request->validate([
+            'jumlah' => 'required|integer',
+        ]);
+
+        $infografis->update([
+            'jumlah' => $request->jumlah,
+        ]);
+
+        return back()->with('success', 'Berhasil diperbarui.');
     }
+
 
     public function destroy(Infografis $infografis)
     {

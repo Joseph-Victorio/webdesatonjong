@@ -1,26 +1,25 @@
 import { Button } from '@/components/ui/button';
 import AppLayout from '@/layouts/app-layout';
-import { Head, useForm } from '@inertiajs/react';
+import { Head, useForm, router } from '@inertiajs/react';
 import { Upload } from 'lucide-react';
 import React from 'react';
+import toast from 'react-hot-toast';
 
-interface Berita {
+interface Hero {
     id: number;
-    judul_berita: string;
-    penulis: string;
-    isi_berita: string;
+    title: string;
+    subtitle: string;
     foto: string | null;
 }
 
 interface Props {
-    berita: Berita;
+    hero: Hero;
 }
 
-const BeritaEdit = ({ berita }: Props) => {
+const HeroEdit = ({ hero }: Props) => {
     const { data, setData, post, processing, errors } = useForm({
-        judul_berita: berita.judul_berita,
-        penulis: berita.penulis,
-        isi_berita: berita.isi_berita,
+        title: hero.title,
+        subtitle: hero.subtitle,
         foto: null as File | null,
     });
 
@@ -37,82 +36,65 @@ const BeritaEdit = ({ berita }: Props) => {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        post(`/berita/${berita.id}?_method=PUT`, { forceFormData: true });
+        post(`/admin/update/${hero.id}?_method=PUT`, { forceFormData: true, onSuccess:()=>toast.success("Hero Berhasil Disimpan!")});
     };
     const breadcrumbs = [
-        { title: 'Berita', href: '/admin/kelola-berita' },
-        { title: 'Edit Berita', href: '/admin/berita/{berita}' },
+        { title: 'hero', href: '/admin/kelola-hero' },
+        { title: 'Edit hero', href: '/admin/hero/{hero}' },
     ];
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Edit Berita" />
+            <Head title="Edit hero" />
 
-            <div className="mx-auto w-1/2 rounded bg-white p-6 shadow">
-                <h1 className="mb-4 text-xl font-bold">Edit Berita</h1>
+            <div className="mx-auto w-full md:w-1/2 rounded bg-white p-6 shadow">
+                <h1 className="mb-4 text-xl font-bold">Edit hero</h1>
 
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <div>
                         <label className="block text-sm font-medium">
-                            Judul Berita
+                            Judul hero
                         </label>
                         <input
-                            name="judul_berita"
+                            name="title"
                             type="text"
-                            value={data.judul_berita}
+                            value={data.title}
                             onChange={handleChange}
                             className="w-full rounded border p-2"
                         />
-                        {errors.judul_berita && (
+                        {errors.title && (
                             <p className="text-sm text-red-500">
-                                {errors.judul_berita}
+                                {errors.title}
                             </p>
                         )}
                     </div>
 
                     <div>
                         <label className="block text-sm font-medium">
-                            Penulis
+                            subtitle
                         </label>
                         <input
-                            name="penulis"
+                            name="subtitle"
                             type="text"
-                            value={data.penulis}
+                            value={data.subtitle}
                             onChange={handleChange}
                             className="w-full rounded border p-2"
                         />
-                        {errors.penulis && (
+                        {errors.subtitle && (
                             <p className="text-sm text-red-500">
-                                {errors.penulis}
-                            </p>
-                        )}
-                    </div>
-
-                    <div>
-                        <label className="block text-sm font-medium">
-                            Isi Berita
-                        </label>
-                        <textarea
-                            name="isi_berita"
-                            value={data.isi_berita}
-                            onChange={handleChange}
-                            className="h-32 w-full rounded border p-2"
-                        />
-                        {errors.isi_berita && (
-                            <p className="text-sm text-red-500">
-                                {errors.isi_berita}
+                                {errors.subtitle}
                             </p>
                         )}
                     </div>
 
                     {/* Foto lama */}
-                    {berita.foto && (
+                    {hero.foto && (
                         <div>
                             <label className="block text-sm font-medium">
                                 Foto Lama
                             </label>
                             <img
-                                src={`/storage/${berita.foto}`}
-                                alt={berita.judul_berita}
+                                src={`/storage/${hero.foto}`}
+                                alt={hero.title}
                                 className="mb-2 h-32 w-32 rounded object-cover"
                             />
                         </div>
@@ -129,8 +111,8 @@ const BeritaEdit = ({ berita }: Props) => {
                             </div>
                         </label>
                         <input
+                            id="foto"
                             name="foto"
-                            id='foto'
                             hidden
                             type="file"
                             onChange={handleChange}
@@ -145,7 +127,7 @@ const BeritaEdit = ({ berita }: Props) => {
                             disabled={processing}
                             className="rounded px-4 py-2"
                         >
-                            {processing ? 'Menyimpan...' : 'Update'}
+                            {processing ? 'Menyimpan...' : 'Simpan'}
                         </Button>
                     </div>
                 </form>
@@ -154,4 +136,4 @@ const BeritaEdit = ({ berita }: Props) => {
     );
 };
 
-export default BeritaEdit;
+export default HeroEdit;

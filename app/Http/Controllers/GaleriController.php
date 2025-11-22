@@ -72,4 +72,12 @@ class GaleriController extends Controller
 
         return redirect()->route('galeri.index')->with('success', 'Foto berhasil dihapus!');
     }
+
+    public function client(){
+        $galeris = Galeri::all();
+
+        return Inertia::render('client/galeri', [
+            'galeris' => $galeris
+        ]);
+    }
 }

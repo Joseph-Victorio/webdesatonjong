@@ -52,8 +52,30 @@ class UsiaPerempuanController extends Controller
      */
     public function update(Request $request, UsiaPerempuan $usiaPerempuan)
     {
-        //
+        $validated = $request->validate([
+            'usia_0_4' => 'required|integer',
+            'usia_5_9' => 'required|integer',
+            'usia_10_14' => 'required|integer',
+            'usia_15_19' => 'required|integer',
+            'usia_20_24' => 'required|integer',
+            'usia_25_29' => 'required|integer',
+            'usia_30_34' => 'required|integer',
+            'usia_35_39' => 'required|integer',
+            'usia_40_44' => 'required|integer',
+            'usia_45_49' => 'required|integer',
+            'usia_50_54' => 'required|integer',
+            'usia_55_59' => 'required|integer',
+            'usia_60_64' => 'required|integer',
+            'usia_65_69' => 'required|integer',
+            'usia_70_74' => 'required|integer',
+            'usia_75_plus' => 'required|integer'
+        ]);
+
+        $usiaPerempuan->update($validated);
+
+        return back()->with('success', 'Data perempuan berhasil diperbarui!');
     }
+
 
     /**
      * Remove the specified resource from storage.

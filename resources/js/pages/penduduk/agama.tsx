@@ -2,27 +2,24 @@ import AppLayout from '@/layouts/app-layout';
 import { Head, useForm } from '@inertiajs/react';
 import { Check, Edit3, X } from 'lucide-react';
 import { useState } from 'react';
-
-interface Infografis {
+import { toast } from 'react-hot-toast';
+interface Agama {
     id: number;
     nama: string;
     jumlah: number;
 }
 
-interface Laki {
-    id: number;
-}
-
-
 interface PageProps {
-    infografis: Infografis[];
-    laki : Laki
+    agama: Agama[];
 }
 
-const PendudukIndex = ({ infografis, laki }: PageProps) => {
-    const breadcrumbs = [{ title: 'Kelola Penduduk', href: '/admin/kelola-penduduk' }];
+const Agama = ({ agama }: PageProps) => {
+    const breadcrumbs = [
+        { title: 'Kelola Penduduk', href: '/admin/kelola-penduduk' },
+        { title: 'Kelola Penduduk Berdasarkan Agama', href: '' },
+    ];
     const [editingId, setEditingId] = useState<number | null>(null);
-    
+
     const { data, setData, put, processing } = useForm({
         jumlah: 0,
     });
@@ -37,43 +34,20 @@ const PendudukIndex = ({ infografis, laki }: PageProps) => {
     };
 
     const saveEdit = (id: number) => {
-        put(`/infografis/update/${id}`, {
-            onSuccess: () => setEditingId(null),
+        put(`/agama/update/${id}`, {
+            onSuccess: () => {
+                (setEditingId(null), toast.success('Berhasil Disimpan!'));
+            },
         });
     };
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Kelola Penduduk" />
+            <Head title="Kelola Penduduk Berdasarkan Status" />
             <div className="p-6">
-                <h1 className="mb-4 text-2xl font-bold">Data Penduduk</h1>
-
-                <div className="mb-5 grid grid-cols-2 md:flex gap-2 text-sm text-center">
-                    <a
-                        href={`/admin/umur/${laki.id}`}
-                        className="cursor-pointer rounded bg-primary px-6 py-2 font-bold text-white duration-300 ease-in-out hover:bg-primary/70"
-                    >
-                        Berdasarkan Kelompok Umur
-                    </a>
-                    <a
-                        href={`/admin/pendidikan`}
-                        className="cursor-pointer rounded bg-primary px-6 py-2 font-bold text-white duration-300 ease-in-out hover:bg-primary/70"
-                    >
-                        Berdasarkan Pendidikan
-                    </a>
-                    <a
-                        href="/admin/status-nikah"
-                        className="cursor-pointer rounded bg-primary px-6 py-2 font-bold text-white duration-300 ease-in-out hover:bg-primary/70"
-                    >
-                        Berdasarkan Status Pernikahan
-                    </a>
-                    <a
-                        href="/admin/agama"
-                        className="cursor-pointer rounded bg-primary px-6 py-2 font-bold text-white duration-300 ease-in-out hover:bg-primary/70"
-                    >
-                        Berdasarkan Agama
-                    </a>
-                </div>
+                <h1 className="mb-4 text-2xl font-bold">
+                    Data Status Pernikahan
+                </h1>
 
                 <div className="overflow-x-auto rounded-lg bg-white shadow">
                     <table className="min-w-full border border-gray-200">
@@ -86,7 +60,7 @@ const PendudukIndex = ({ infografis, laki }: PageProps) => {
                         </thead>
 
                         <tbody>
-                            {infografis.map((item) => (
+                            {agama.map((item) => (
                                 <tr key={item.id} className="hover:bg-gray-50">
                                     <td className="border px-4 py-2">
                                         {item.nama}
@@ -156,4 +130,4 @@ const PendudukIndex = ({ infografis, laki }: PageProps) => {
     );
 };
 
-export default PendudukIndex;
+export default Agama;

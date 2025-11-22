@@ -15,7 +15,7 @@ const CardAnggota = ({ image, nama, jabatan }: CardAnggotaProps) => {
       />
 
       {/* Overlay bawah */}
-      <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/80 to-transparent px-4 py-3 text-white">
+      <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-primary/80 to-transparent px-4 py-3 text-white">
         <h3 className="text-lg font-bold leading-tight">{nama}</h3>
         <p className="text-sm opacity-80">{jabatan}</p>
       </div>

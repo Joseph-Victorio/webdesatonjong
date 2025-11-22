@@ -3,24 +3,23 @@ import AppLayout from '@/layouts/app-layout';
 import { Head, useForm } from '@inertiajs/react';
 import { Upload } from 'lucide-react';
 import React from 'react';
+import toast from 'react-hot-toast';
 
-interface Berita {
+interface Struktur {
     id: number;
-    judul_berita: string;
-    penulis: string;
-    isi_berita: string;
+    nama: string;
+    jabatan: string;
     foto: string | null;
 }
 
 interface Props {
-    berita: Berita;
+    struktur: Struktur;
 }
 
-const BeritaEdit = ({ berita }: Props) => {
+const StrukturEdit = ({ struktur }: Props) => {
     const { data, setData, post, processing, errors } = useForm({
-        judul_berita: berita.judul_berita,
-        penulis: berita.penulis,
-        isi_berita: berita.isi_berita,
+        nama: struktur.nama,
+        jabatan: struktur.jabatan,
         foto: null as File | null,
     });
 
@@ -37,82 +36,66 @@ const BeritaEdit = ({ berita }: Props) => {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        post(`/berita/${berita.id}?_method=PUT`, { forceFormData: true });
+        post(`/struktur/${struktur.id}?_method=PUT`, { forceFormData: true, onSuccess: ()=> toast.success('Berhasil Disimpan!') });
     };
     const breadcrumbs = [
-        { title: 'Berita', href: '/admin/kelola-berita' },
-        { title: 'Edit Berita', href: '/admin/berita/{berita}' },
+        { title: 'struktur', href: '/admin/kelola-struktur' },
+        { title: 'Edit struktur', href: '/admin/struktur/{struktur}' },
     ];
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Edit Berita" />
+            <Head title="Edit struktur" />
 
             <div className="mx-auto w-1/2 rounded bg-white p-6 shadow">
-                <h1 className="mb-4 text-xl font-bold">Edit Berita</h1>
+                <h1 className="mb-4 text-xl font-bold">Edit struktur</h1>
 
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <div>
                         <label className="block text-sm font-medium">
-                            Judul Berita
+                            Judul struktur
                         </label>
                         <input
-                            name="judul_berita"
+                            name="nama"
                             type="text"
-                            value={data.judul_berita}
+                            value={data.nama}
                             onChange={handleChange}
                             className="w-full rounded border p-2"
                         />
-                        {errors.judul_berita && (
+                        {errors.nama && (
                             <p className="text-sm text-red-500">
-                                {errors.judul_berita}
+                                {errors.nama}
                             </p>
                         )}
                     </div>
 
                     <div>
                         <label className="block text-sm font-medium">
-                            Penulis
+                            jabatan
                         </label>
                         <input
-                            name="penulis"
+                            name="jabatan"
                             type="text"
-                            value={data.penulis}
+                            value={data.jabatan}
                             onChange={handleChange}
                             className="w-full rounded border p-2"
                         />
-                        {errors.penulis && (
+                        {errors.jabatan && (
                             <p className="text-sm text-red-500">
-                                {errors.penulis}
+                                {errors.jabatan}
                             </p>
                         )}
                     </div>
 
-                    <div>
-                        <label className="block text-sm font-medium">
-                            Isi Berita
-                        </label>
-                        <textarea
-                            name="isi_berita"
-                            value={data.isi_berita}
-                            onChange={handleChange}
-                            className="h-32 w-full rounded border p-2"
-                        />
-                        {errors.isi_berita && (
-                            <p className="text-sm text-red-500">
-                                {errors.isi_berita}
-                            </p>
-                        )}
-                    </div>
 
                     {/* Foto lama */}
-                    {berita.foto && (
+                    {struktur.foto && (
                         <div>
                             <label className="block text-sm font-medium">
                                 Foto Lama
                             </label>
                             <img
-                                src={`/storage/${berita.foto}`}
-                                alt={berita.judul_berita}
+                                src={`/storage/${struktur.foto}`}
+                                alt={struktur.nama}
                                 className="mb-2 h-32 w-32 rounded object-cover"
                             />
                         </div>
@@ -129,8 +112,8 @@ const BeritaEdit = ({ berita }: Props) => {
                             </div>
                         </label>
                         <input
+                        id='foto'
                             name="foto"
-                            id='foto'
                             hidden
                             type="file"
                             onChange={handleChange}
@@ -145,7 +128,7 @@ const BeritaEdit = ({ berita }: Props) => {
                             disabled={processing}
                             className="rounded px-4 py-2"
                         >
-                            {processing ? 'Menyimpan...' : 'Update'}
+                            {processing ? 'Menyimpan...' : 'Simpan'}
                         </Button>
                     </div>
                 </form>
@@ -154,4 +137,4 @@ const BeritaEdit = ({ berita }: Props) => {
     );
 };
 
-export default BeritaEdit;
+export default StrukturEdit;

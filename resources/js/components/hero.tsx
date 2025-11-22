@@ -6,7 +6,14 @@ import "swiper/css"
 import "swiper/css/pagination"
 import "swiper/css/navigation"
 
-export default function Hero() {
+interface HerosProps {
+    title: string
+    subtitle: string
+    foto: string
+}
+
+
+export default function Hero({title, subtitle, foto} : HerosProps) {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768)
 
   useEffect(() => {
@@ -16,53 +23,17 @@ export default function Hero() {
   }, [])
 
   return (
-    <section className="w-full min-h-screen">
-      <Swiper
-        modules={[Pagination, Navigation, Autoplay]}
-        slidesPerView={1}
-        loop={true}
-        navigation={true} 
-        autoplay={
-          isMobile
-            ? { delay: 3000, disableOnInteraction: false }
-            : undefined 
-        }
-        pagination={{ clickable: true }}
-        className="w-full h-screen"
-      >
-        <SwiperSlide>
-          <div className="min-h-screen bg-[url('/hero.png')] bg-cover bg-center flex items-center">
+      
+      <SwiperSlide>
+          <div className={`bg-[url(${foto})] `+"min-h-screen  bg-cover bg-center flex items-center"}>
             <div className="ml-5 md:ml-20 text-white max-w-md md:max-w-lg ">
-              <p className="text-3xl md:text-6xl font-bold">Selamat Datang</p>
+              <p className="text-3xl md:text-6xl font-bold">{title}</p>
               <p className="text-lg mt-2">
-                Sumber informasi terbaru tentang pemerintahan di Desa Tonjong
+                {subtitle}
               </p>
             </div>
           </div>
         </SwiperSlide>
 
-        <SwiperSlide>
-          <div className="min-h-screen bg-[url('/hero.png')] bg-cover bg-center flex items-center">
-            <div className="ml-6 md:ml-20 text-white max-w-md">
-              <h3 className="text-3xl font-bold">Desa yang Maju</h3>
-              <p className="text-lg mt-2">
-                Mari bersama membangun Desa Tonjong yang makmur dan sejahtera
-              </p>
-            </div>
-          </div>
-        </SwiperSlide>
-
-        <SwiperSlide>
-          <div className="min-h-screen bg-[url('/hero3.png')] bg-cover bg-center flex items-center">
-            <div className="ml-6 md:ml-20 text-white max-w-md">
-              <h3 className="text-3xl font-bold">Gotong Royong</h3>
-              <p className="text-lg mt-2">
-                Kebersamaan adalah semangat masyarakat Desa Tonjong
-              </p>
-            </div>
-          </div>
-        </SwiperSlide>
-      </Swiper>
-    </section>
   )
 }

@@ -1,6 +1,5 @@
 import AdministrasiPendudukan from '@/components/AdministrasiPendudukan';
 import CardAnggota from '@/components/CardAnggota';
-import Hero from '@/components/hero';
 import GuestLayout from '@/layouts/guest-layout';
 import { Head } from '@inertiajs/react';
 import {
@@ -10,51 +9,92 @@ import {
     Landmark,
     Newspaper,
 } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { Autoplay, Navigation, Pagination } from 'swiper/modules';
+import { Swiper, SwiperSlide } from 'swiper/react';
 
-const anggota = [
-    {
-        image: '/images/kades.jpg',
-        nama: 'Budi Santoso',
-        jabatan: 'Kepala Desa',
-    },
-    {
-        image: '/images/sekdes.jpg',
-        nama: 'Rina Dewi',
-        jabatan: 'Sekretaris Desa',
-    },
-    { image: '/images/bpd.jpg', nama: 'Andi Wijaya', jabatan: 'Ketua BPD' },
-    {
-        image: '/images/sekdes.jpg',
-        nama: 'Rina Dewi',
-        jabatan: 'Sekretaris Desa',
-    },
-    { image: '/images/bpd.jpg', nama: 'Andi Wijaya', jabatan: 'Ketua BPD' },
-];
+import "swiper/css"
+import "swiper/css/pagination"
+import "swiper/css/navigation"
 
 interface Singkat {
     id: number;
     nama: string;
     jumlah: number;
 }
+
+interface AnggotaSingkat {
+    id: number;
+    nama: string;
+    jabatan: string;
+    foto: string;
+}
+interface Heros {
+    id: number;
+    title: string;
+    subtitle: string;
+    foto: string;
+}
+
 interface PageProps {
     singkat: Singkat[];
+    anggota: AnggotaSingkat[];
+    heros: Heros[];
 }
-const beranda = ({ singkat }: PageProps) => {
+const beranda = ({ singkat, anggota, heros }: PageProps) => {
     const images = [
         '/infografi/1.png',
         '/infografi/2.png',
         '/infografi/3.png',
         '/infografi/4.png',
     ];
+    const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
+    useEffect(() => {
+        const handleResize = () => setIsMobile(window.innerWidth < 768);
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
     return (
         <GuestLayout>
             <Head title="Beranda" />
-            <Hero />
+            <Swiper
+                modules={[Pagination, Navigation, Autoplay]}
+                slidesPerView={1}
+                loop={true}
+                navigation={true}
+                autoplay={
+                    isMobile
+                        ? { delay: 3000, disableOnInteraction: false }
+                        : undefined
+                }
+                pagination={{ clickable: true }}
+                className="h-screen w-full"
+            >
+                {heros.map((item, index) => (
+                    <SwiperSlide key={index}>
+                        <div
+                            className={
+                                'flex min-h-screen items-center bg-cover bg-center'
+                            }
+                            style={{backgroundImage: `url('/storage/${item.foto}')`} }
+                        >
+                            <div className="ml-5 max-w-md text-white md:ml-20 md:max-w-lg">
+                                <p className="text-3xl font-bold md:text-6xl">
+                                    {item.title}
+                                </p>
+                                <p className="mt-2 text-lg">{item.subtitle}</p>
+                            </div>
+                        </div>
+                    </SwiperSlide>
+                ))}
+            </Swiper>
+
             {/* jelajah desa */}
             <section className="mt-5 md:px-10 md:py-20">
                 {/* mobile */}
                 <div className="flex flex-wrap items-center gap-5 p-5 md:hidden">
-                    <a href="/profil-desa">
+                    <a href="/profil">
                         <div className="rounded-xl p-2 shadow-lg transition-all duration-300 ease-in-out hover:shadow-primary">
                             <Landmark
                                 size={50}
@@ -65,7 +105,7 @@ const beranda = ({ singkat }: PageProps) => {
                             Profil Desa
                         </p>
                     </a>
-                    <a href="/inforgrafis" className="">
+                    <a href="/infografis" className="">
                         <div className="rounded-xl p-2 shadow-lg transition-all duration-300 ease-in-out hover:shadow-primary">
                             <ChartNoAxesCombined
                                 size={50}
@@ -112,7 +152,7 @@ const beranda = ({ singkat }: PageProps) => {
                     <div className="flex flex-col gap-10">
                         {/* atas */}
                         <div className="flex flex-row gap-10">
-                            <a href="/profil-desa">
+                            <a href="/profil">
                                 <div className="rounded-xl p-2 shadow-lg transition-all duration-300 ease-in-out hover:shadow-primary">
                                     <Landmark
                                         size={120}
@@ -123,7 +163,7 @@ const beranda = ({ singkat }: PageProps) => {
                                     </p>
                                 </div>
                             </a>
-                            <a href="/inforgrafis">
+                            <a href="/infografis">
                                 <div className="rounded-xl p-2 shadow-lg transition-all duration-300 ease-in-out hover:shadow-primary">
                                     <ChartNoAxesCombined
                                         size={120}
@@ -137,7 +177,7 @@ const beranda = ({ singkat }: PageProps) => {
                         </div>
                         {/* bawah */}
                         <div className="ml-20 flex flex-row gap-10">
-                            <a href="/ppid">
+                            <a href="/galeri">
                                 <div className="rounded-xl p-2 shadow-lg transition-all duration-300 ease-in-out hover:shadow-primary">
                                     <Image
                                         size={120}
@@ -202,14 +242,18 @@ const beranda = ({ singkat }: PageProps) => {
                 </div>
 
                 {/* Cards Section */}
-                <div className="scrollbar-hide flex snap-x snap-mandatory grid-cols-1 gap-5 overflow-x-auto pb-4 sm:grid-cols-2 md:grid md:grid-cols-3 md:overflow-visible lg:grid-cols-4 xl:grid-cols-5">
-                    {anggota.slice(-5).map((a, index) => (
+                <div className="scrollbar-hide mt-5 flex w-full grid-cols-1 place-items-center gap-5 overflow-x-auto pb-4 sm:grid-cols-2 md:grid md:grid-cols-3 md:overflow-visible lg:grid-cols-4">
+                    {anggota.map((a, index) => (
                         <div
                             key={index}
                             className="w-56 flex-shrink-0 snap-center md:w-auto"
                         >
                             <CardAnggota
-                                image={a.image}
+                                image={
+                                    a.foto == null
+                                        ? '/thumbnail.png'
+                                        : `storage/${a.foto}`
+                                }
                                 nama={a.nama}
                                 jabatan={a.jabatan}
                             />
@@ -240,12 +284,13 @@ const beranda = ({ singkat }: PageProps) => {
                         </a>
                     </div>
                 </div>
-                <div className="grid grid-cols-2 place-content-center w-full">
+                <div className="grid w-full grid-cols-2 place-content-center">
                     {singkat.map((item, index) => (
                         <AdministrasiPendudukan
                             nama={item.nama}
                             jumlah={item.jumlah}
                             images={images[index]}
+                            key={index}
                         />
                     ))}
                 </div>
