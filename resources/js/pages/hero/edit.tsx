@@ -39,7 +39,7 @@ const HeroEdit = ({ hero }: Props) => {
         post(`/admin/update/${hero.id}?_method=PUT`, { forceFormData: true, onSuccess:()=>toast.success("Hero Berhasil Disimpan!")});
     };
     const breadcrumbs = [
-        { title: 'hero', href: '/admin/kelola-hero' },
+        { title: 'Dashboard', href: '/dashboard' },
         { title: 'Edit hero', href: '/admin/hero/{hero}' },
     ];
     return (

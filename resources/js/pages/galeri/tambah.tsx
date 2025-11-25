@@ -1,6 +1,8 @@
 import { Button } from '@/components/ui/button';
 import AppLayout from '@/layouts/app-layout';
 import { Head, useForm } from '@inertiajs/react';
+import { Upload } from 'lucide-react';
+import toast from 'react-hot-toast';
 
 const tambah = () => {
     const { data, setData, post, processing, errors } = useForm({
@@ -15,7 +17,10 @@ const tambah = () => {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        post('/admin/tambah-galeri', { forceFormData: true });
+        post('/admin/tambah-galeri', {
+            forceFormData: true,
+            onSuccess: () => toast.success('Berhasil Menambahkan foto!'),
+        });
     };
     const breadcrumbs = [
         { title: 'Galeri', href: '/admin/kelola-galeri' },
@@ -24,24 +29,37 @@ const tambah = () => {
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Tambah Foto Galeri" />
-            <div className="mx-auto max-w-lg rounded bg-white p-6 shadow">
+            <div className="mx-auto w-full mt-10 md:max-w-lg rounded bg-white p-6 shadow">
                 <h1 className="mb-4 text-xl font-bold">Tambah Foto Galeri</h1>
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <div>
                         <label className="block text-sm font-medium">
                             Pilih Foto
                         </label>
-                        <input
-                            type="file"
-                            name="foto"
-                            onChange={handleChange}
-                            className="w-full rounded border p-2"
-                        />
-                        {errors.foto && (
-                            <p className="text-sm text-red-500">
-                                {errors.foto}
-                            </p>
-                        )}
+                        <div>
+                            <label
+                                className="flex cursor-pointer items-center gap-2 rounded border p-2 text-sm font-medium"
+                                htmlFor="foto"
+                            >
+                                <div className="mx-auto flex w-[150px] items-center gap-2">
+                                    <p className="text-center">Upload Gambar</p>{' '}
+                                    <Upload />
+                                </div>
+                            </label>
+                            <input
+                                type="file"
+                                name="foto"
+                                id="foto"
+                                hidden
+                                onChange={handleChange}
+                                className="h-[100px] w-full rounded border p-2"
+                            />
+                            {errors.foto && (
+                                <p className="text-sm text-red-500">
+                                    {errors.foto}
+                                </p>
+                            )}
+                        </div>
                     </div>
 
                     <Button

@@ -145,7 +145,7 @@ const BeritaEdit = ({ berita }: Props) => {
                             disabled={processing}
                             className="rounded px-4 py-2"
                         >
-                            {processing ? 'Menyimpan...' : 'Update'}
+                            {processing ? 'Menyimpan...' : 'Simpan'}
                         </Button>
                     </div>
                 </form>

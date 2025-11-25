@@ -46,7 +46,7 @@ const Agama = ({ agama }: PageProps) => {
             <Head title="Kelola Penduduk Berdasarkan Status" />
             <div className="p-6">
                 <h1 className="mb-4 text-2xl font-bold">
-                    Data Status Pernikahan
+                    Data Penduduk Berdasarkan Agama
                 </h1>
 
                 <div className="overflow-x-auto rounded-lg bg-white shadow">

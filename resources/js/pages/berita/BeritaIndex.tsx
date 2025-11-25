@@ -11,6 +11,7 @@ interface Berita {
     viewer: number;
     isi_berita: string;
     foto?: string;
+    slug: string
 }
 
 interface PaginationLink {
@@ -34,9 +35,9 @@ const BeritaIndex = () => {
     const { delete: destroy } = useForm();
     const { get, data, setData } = useForm({ search: filters.search || '' });
 
-    const handleDelete = (id: number) => {
+    const handleDelete = (slug: string) => {
         if (confirm('Yakin ingin menghapus berita ini?')) {
-            destroy(`/admin/berita/${id}`);
+            destroy(`/admin/berita/${slug}`);
         }
     };
 
@@ -111,14 +112,14 @@ const BeritaIndex = () => {
                                             {item.viewer}
                                         </td>
                                         <td className="border px-4 py-2 text-center">
-                                            <Link href={`/berita/edit/${item.id}`}>
+                                            <a href={`/admin/berita/${item.slug}`}>
                                                 <button className="mr-2 text-blue-600 hover:underline">
                                                     <Edit3 />
                                                 </button>
-                                            </Link>
+                                            </a>
 
                                             <button
-                                                onClick={() => handleDelete(item.id)}
+                                                onClick={() => handleDelete(item.slug)}
                                                 className="text-red-600 hover:underline"
                                             >
                                                 <Trash2 />
@@ -167,14 +168,14 @@ const BeritaIndex = () => {
                                     </div>
 
                                     <div className="flex gap-6 mt-4">
-                                        <Link href={`/berita/edit/${item.id}`}>
+                                        <Link href={`/admin/berita/${item.slug}`}>
                                             <button className="text-blue-600 flex items-center gap-1">
                                                 <Edit3 size={16} /> Edit
                                             </button>
                                         </Link>
 
                                         <button
-                                            onClick={() => handleDelete(item.id)}
+                                            onClick={() => handleDelete(item.slug)}
                                             className="text-red-600 flex items-center gap-1"
                                         >
                                             <Trash2 size={16} /> Hapus

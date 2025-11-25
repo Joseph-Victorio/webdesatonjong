@@ -35,7 +35,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/admin/kelola-berita', [BeritaController::class, 'index'])->name('berita.index');
     Route::get('/admin/tambah-berita', [BeritaController::class, 'create'])->name('berita.create');
-    Route::get('/berita/edit/{berita}', [BeritaController::class, 'edit'])->name('berita.edit');
+    Route::get('/admin/berita/{berita}', [BeritaController::class, 'edit'])->name('berita.edit');
     Route::put('/berita/{berita}', [BeritaController::class, 'update'])->name('berita.update');
     Route::delete('/berita/delete/{berita}', [BeritaController::class, 'destroy'])->name('berita.destroy');
     Route::post('/admin/tambah-berita', [BeritaController::class, 'store'])->name('berita.store');

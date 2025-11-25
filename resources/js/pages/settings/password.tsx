@@ -61,7 +61,7 @@ export default function Password() {
                             <>
                                 <div className="grid gap-2">
                                     <Label htmlFor="current_password">
-                                        Current password
+                                        Password Sekarang
                                     </Label>
 
                                     <Input
@@ -81,7 +81,7 @@ export default function Password() {
 
                                 <div className="grid gap-2">
                                     <Label htmlFor="password">
-                                        New password
+                                        Password Baru
                                     </Label>
 
                                     <Input
@@ -99,7 +99,7 @@ export default function Password() {
 
                                 <div className="grid gap-2">
                                     <Label htmlFor="password_confirmation">
-                                        Confirm password
+                                        Konfirmasi Password
                                     </Label>
 
                                     <Input
@@ -121,7 +121,7 @@ export default function Password() {
                                         disabled={processing}
                                         data-test="update-password-button"
                                     >
-                                        Save password
+                                        Simpan Password
                                     </Button>
 
                                     <Transition
@@ -132,7 +132,7 @@ export default function Password() {
                                         leaveTo="opacity-0"
                                     >
                                         <p className="text-sm text-neutral-600">
-                                            Saved
+                                            Tersimpan
                                         </p>
                                     </Transition>
                                 </div>

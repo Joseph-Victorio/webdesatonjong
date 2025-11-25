@@ -56,7 +56,7 @@ class BeritaController extends Controller
 
     public function edit(Berita $berita)
     {
-        return Inertia::render('berita/BeritaEdit', [
+        return Inertia::render('berita/edit', [
             'berita' => $berita
         ]);
     }

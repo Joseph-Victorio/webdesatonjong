@@ -31,7 +31,7 @@ const StrukturIndex = () => {
     const { delete: destroy } = useForm();
 
     const handleDelete = (id: number) => {
-        if (confirm('Yakin ingin menghapus struktur ini?')) {
+        if (confirm('Yakin ingin menghapus anggota ini?')) {
             destroy(`/struktur/delete/${id}`,{
                 onSuccess:()=> toast.success('Anggota Berhasil Dihapus!')
             });
@@ -51,7 +51,7 @@ const StrukturIndex = () => {
                         href="/admin/tambah-struktur"
                         className="rounded border-2 border-primary bg-white px-5 py-2 font-medium transition duration-300 ease-in-out hover:bg-primary hover:text-white"
                     >
-                        Tambah Struktur
+                        Tambah Anggota
                     </a>
                 </div>
 

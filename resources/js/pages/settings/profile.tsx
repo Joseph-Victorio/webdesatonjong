@@ -51,7 +51,7 @@ export default function Profile({
                         {({ processing, recentlySuccessful, errors }) => (
                             <>
                                 <div className="grid gap-2">
-                                    <Label htmlFor="name">Name</Label>
+                                    <Label htmlFor="name">Nama</Label>
 
                                     <Input
                                         id="name"
@@ -70,7 +70,7 @@ export default function Profile({
                                 </div>
 
                                 <div className="grid gap-2">
-                                    <Label htmlFor="email">Email address</Label>
+                                    <Label htmlFor="email">Email </Label>
 
                                     <Input
                                         id="email"
@@ -121,7 +121,7 @@ export default function Profile({
                                         disabled={processing}
                                         data-test="update-profile-button"
                                     >
-                                        Save
+                                        Simpan
                                     </Button>
 
                                     <Transition
@@ -132,7 +132,7 @@ export default function Profile({
                                         leaveTo="opacity-0"
                                     >
                                         <p className="text-sm text-neutral-600">
-                                            Saved
+                                            Simpan
                                         </p>
                                     </Transition>
                                 </div>
