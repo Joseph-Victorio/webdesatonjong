@@ -2,6 +2,7 @@ import AppLayout from '@/layouts/app-layout';
 import { Head, useForm } from '@inertiajs/react';
 import { Check, Edit3, X } from 'lucide-react';
 import { useState } from 'react';
+import toast from 'react-hot-toast';
 
 interface Infografis {
     id: number;
@@ -38,7 +39,9 @@ const PendudukIndex = ({ infografis, laki }: PageProps) => {
 
     const saveEdit = (id: number) => {
         put(`/infografis/update/${id}`, {
-            onSuccess: () => setEditingId(null),
+            onSuccess: () => {
+                [setEditingId(null), toast.success("Berhasil update data penduduk!")]
+            }
         });
     };
 

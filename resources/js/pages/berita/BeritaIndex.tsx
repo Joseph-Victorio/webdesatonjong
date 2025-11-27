@@ -3,6 +3,7 @@ import AppLayout from '@/layouts/app-layout';
 import { PageProps } from '@inertiajs/core';
 import { Head, Link, useForm, usePage } from '@inertiajs/react';
 import { Edit3, Trash2 } from 'lucide-react';
+import toast from 'react-hot-toast';
 
 interface Berita {
     id: number;
@@ -37,8 +38,11 @@ const BeritaIndex = () => {
 
     const handleDelete = (slug: string) => {
         if (confirm('Yakin ingin menghapus berita ini?')) {
-            destroy(`/admin/berita/${slug}`);
+            destroy(`/berita/delete/${slug}`, {
+                onSuccess: ()=> toast.success("Berita Berhasil dihapus!")
+            });
         }
+     
     };
 
     const handleSearch = (e: React.FormEvent) => {

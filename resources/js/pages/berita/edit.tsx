@@ -10,6 +10,7 @@ interface Berita {
     penulis: string;
     isi_berita: string;
     foto: string | null;
+    slug: string;
 }
 
 interface Props {
@@ -37,7 +38,7 @@ const BeritaEdit = ({ berita }: Props) => {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        post(`/berita/${berita.id}?_method=PUT`, { forceFormData: true });
+        post(`/berita/${berita.slug}?_method=PUT`, { forceFormData: true });
     };
     const breadcrumbs = [
         { title: 'Berita', href: '/admin/kelola-berita' },
@@ -130,7 +131,7 @@ const BeritaEdit = ({ berita }: Props) => {
                         </label>
                         <input
                             name="foto"
-                            id='foto'
+                            id="foto"
                             hidden
                             type="file"
                             onChange={handleChange}

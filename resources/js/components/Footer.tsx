@@ -44,7 +44,7 @@ const Footer = () => {
                 </div>
 
                 {/*Hubungi Kami */}
-                <div>
+                {/* <div>
                     <h3 className="mb-3 text-xl font-semibold">Hubungi Kami</h3>
                     <ul className="space-y-2 text-sm">
                         <li className="flex items-center gap-2">
@@ -59,7 +59,7 @@ const Footer = () => {
                         <FaInstagram className="cursor-pointer hover:text-gray-300" />
                         <FaTiktok className="cursor-pointer hover:text-gray-300" />
                     </div>
-                </div>
+                </div> */}
 
                 {/* Jelajahi */}
                 <div>
@@ -108,32 +108,32 @@ const Footer = () => {
 
                 {/* Accordion */}
                 {[
-                    {
-                        id: 'kontak',
-                        title: 'Kontak Desa',
-                        content: (
-                            <ul className="space-y-2 text-sm">
-                                <li className="flex items-center gap-2">
-                                    <FaPhoneAlt /> 08123456789
-                                </li>
-                                <li className="flex items-center gap-2">
-                                    <FaEnvelope /> desatonjong@gmail.com
-                                </li>
-                            </ul>
-                        ),
-                    },
+                    // {
+                    //     id: 'kontak',
+                    //     title: 'Kontak Desa',
+                    //     content: (
+                    //         <ul className="space-y-2 text-sm">
+                    //             <li className="flex items-center gap-2">
+                    //                 <FaPhoneAlt /> 08123456789
+                    //             </li>
+                    //             <li className="flex items-center gap-2">
+                    //                 <FaEnvelope /> desatonjong@gmail.com
+                    //             </li>
+                    //         </ul>
+                    //     ),
+                    // },
 
-                    {
-                        id: 'sosial',
-                        title: 'Sosial Media',
-                        content: (
-                            <div className="mt-2 flex gap-3 text-lg">
-                                <FaFacebookF />
-                                <FaInstagram />
-                                <FaTiktok />
-                            </div>
-                        ),
-                    },
+                    // {
+                    //     id: 'sosial',
+                    //     title: 'Sosial Media',
+                    //     content: (
+                    //         <div className="mt-2 flex gap-3 text-lg">
+                    //             <FaFacebookF />
+                    //             <FaInstagram />
+                    //             <FaTiktok />
+                    //         </div>
+                    //     ),
+                    // },
                     {
                         id: 'jelajahi',
                         title: 'Jelajahi',

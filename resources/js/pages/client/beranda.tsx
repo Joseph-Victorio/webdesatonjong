@@ -69,13 +69,13 @@ const beranda = ({ singkat, anggota, heros }: PageProps) => {
                         : undefined
                 }
                 pagination={{ clickable: true }}
-                className="h-screen w-full"
+                className="h-[320px] md:h-screen w-full"
             >
                 {heros.map((item, index) => (
                     <SwiperSlide key={index}>
                         <div
                             className={
-                                'flex min-h-screen items-center bg-cover bg-center'
+                                'flex h-full md:min-h-screen items-center bg-cover bg-center'
                             }
                             style={{backgroundImage: `url('/storage/${item.foto}')`} }
                         >
@@ -93,7 +93,7 @@ const beranda = ({ singkat, anggota, heros }: PageProps) => {
             {/* jelajah desa */}
             <section className="mt-5 md:px-10 md:py-20">
                 {/* mobile */}
-                <div className="flex flex-wrap items-center gap-5 p-5 md:hidden">
+                <div className="grid grid-cols-4 place-content-center items-center gap-5 p-5 md:hidden">
                     <a href="/profil">
                         <div className="rounded-xl p-2 shadow-lg transition-all duration-300 ease-in-out hover:shadow-primary">
                             <Landmark
@@ -285,7 +285,7 @@ const beranda = ({ singkat, anggota, heros }: PageProps) => {
                     </div>
                 </div>
                 <div className="grid w-full grid-cols-2 place-content-center">
-                    {singkat.map((item, index) => (
+                    {singkat.slice(0, 4).map((item, index) => (
                         <AdministrasiPendudukan
                             nama={item.nama}
                             jumlah={item.jumlah}

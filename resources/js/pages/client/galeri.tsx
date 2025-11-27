@@ -44,7 +44,7 @@ const GaleriPage = ({ galeris }: PageProps) => {
                     onClick={() => setSelected(null)}
                 >
                     <div
-                        className=" p-4 rounded-xl max-w-Pxl shadow-xl"
+                        className=" p-4 rounded-xl max-w-xl shadow-xl"
                         onClick={(e) => e.stopPropagation()}
                     >
                         <img
